@@ -23,16 +23,21 @@
         android:layout_weight="1"
         android:padding="@dimen/gap"
         >
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:layout_weight="1"
-            android:background="@mipmap/check"/>
-        <ImageButton
+        <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@mipmap/check"
+            android:textColor="@color/colorAccent"
+            android:textAlignment="center"
+            android:textSize="@dimen/fontsize_header"
+            android:id="@+id/class_button"
+            />
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/assign_button"
             android:background="@mipmap/checkassign"
             />
 

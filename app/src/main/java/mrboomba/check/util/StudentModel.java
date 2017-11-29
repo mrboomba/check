@@ -1,5 +1,8 @@
 package mrboomba.check.util;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -7,12 +10,12 @@ import java.util.Arrays;
  * Created by mrboomba on 29/11/2560.
  */
 
-public class StudentModel {
-    private String firstName,lastName;
-    private int id,classAmnt,assignAmnt;
+public class StudentModel implements Parcelable{
+    private String firstName,lastName,id;
+    private int classAmnt,assignAmnt;
     private int[] classCheck,assignCheck;
 
-    public StudentModel(String firstName, String lastName, int id, int classAmnt, int assignAmnt) {
+    public StudentModel(String firstName, String lastName, String id, int classAmnt, int assignAmnt) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.id = id;
@@ -23,6 +26,28 @@ public class StudentModel {
         Arrays.fill(classCheck,-1);
         Arrays.fill(assignCheck,-1);
     }
+
+    protected StudentModel(Parcel in) {
+        firstName = in.readString();
+        lastName = in.readString();
+        id = in.readString();
+        classAmnt = in.readInt();
+        assignAmnt = in.readInt();
+        classCheck = in.createIntArray();
+        assignCheck = in.createIntArray();
+    }
+
+    public static final Creator<StudentModel> CREATOR = new Creator<StudentModel>() {
+        @Override
+        public StudentModel createFromParcel(Parcel in) {
+            return new StudentModel(in);
+        }
+
+        @Override
+        public StudentModel[] newArray(int size) {
+            return new StudentModel[size];
+        }
+    };
 
     public String getFirstName() {
         return firstName;
@@ -40,27 +65,27 @@ public class StudentModel {
         this.lastName = lastName;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     public int getClassChecked(int week) {
-        return classCheck[week-1];
+        return classCheck[week];
     }
 
     public int getAssignChecked(int week) {
-        return assignCheck[week-1];
+        return assignCheck[week];
     }
 
     public void checkClass(int week,int value) {
-        classCheck[week-1] = value;
+        classCheck[week] = value;
     }
     public void checkAssign(int week,int value) {
-        assignCheck[week-1] = value;
+        assignCheck[week] = value;
     }
 
     public int getClassAmnt() {
@@ -90,5 +115,21 @@ public class StudentModel {
             assignCheck[i] = tmp[i];
         }
         assignCheck[tmp.length] = -1;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(firstName);
+        parcel.writeString(lastName);
+        parcel.writeString(id);
+        parcel.writeInt(classAmnt);
+        parcel.writeInt(assignAmnt);
+        parcel.writeIntArray(classCheck);
+        parcel.writeIntArray(assignCheck);
     }
 }

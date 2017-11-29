@@ -83,6 +83,7 @@ public class ImportActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = new Intent(ImportActivity.this, NewItemActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
         return  true;
     }
@@ -94,6 +95,7 @@ public class ImportActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ImportActivity.this, HomeActivity.class);
+                intent.putExtra("class",classModel);
                 startActivity(intent);
             }
         });
@@ -106,6 +108,7 @@ public class ImportActivity extends AppCompatActivity {
                     if (list.size() >= 1) {
                         new MaterialDialog.Builder(ImportActivity.this)
                                 .title(R.string.choose_file)
+                                .titleColor(getResources().getColor(R.color.colorAccent))
                                 .titleGravity(GravityEnum.CENTER)
                                 .canceledOnTouchOutside(true)
                                 .items(list)

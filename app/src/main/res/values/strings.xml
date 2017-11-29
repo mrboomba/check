@@ -12,4 +12,12 @@
     <string name="new_class">CREATE NEW CLASS</string>
     <string name="task">SELECT TASKS</string>
     <string name="choose_file">choose class</string>
+
+
+    <string name="filename_error">Please choose your file</string>
+    <string name="class_amnt_error">Please fill class Amount</string>
+    <string name="assigmn_amnt_error">Please fill assginment Amount</string>
+    <string name="classname_error">Please fill class name</string>
+    <string name="file_error">Please choose your file</string>
+    <string name="folder_empty_error">Folder is empty</string>
 </resources>

@@ -28,12 +28,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="20"
             android:enabled="false"
+            android:textColor="@android:color/black"
+            android:id="@+id/filename"
             android:hint="@string/hint"/>
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@mipmap/browse_round"
             android:background="@android:color/transparent"
+            android:id="@+id/browse"
             android:layout_weight="80"/>
     </LinearLayout>
 
@@ -51,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:id="@+id/name"
             android:hint="@string/hint_name"/>
     </LinearLayout>
 
@@ -69,6 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="numberDecimal"
+            android:id="@+id/classday"
             android:hint="@string/hint_class"/>
     </LinearLayout>
     <LinearLayout
@@ -86,6 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="numberDecimal"
+            android:id="@+id/assign"
             android:hint="@string/hint_assign"/>
     </LinearLayout>
     <Button
@@ -94,6 +100,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/background"
         android:text="@string/submit"
+        android:id="@+id/create"
         android:background="@color/colorAccent"/>
 
 
