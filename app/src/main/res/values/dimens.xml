@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="gap">20dp</dimen>
+    <dimen name="fontsize">15sp</dimen>
+    <dimen name="fontsize_header">25sp</dimen>
+</resources>

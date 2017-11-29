@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mrboomba.check.Activity.ImportActivity"
+    android:padding="@android:dimen/app_icon_size"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:gravity="center">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/logo_round_xxhdpi"
+        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linear"
+            android:padding="@dimen/gap">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:id="@+id/edit"
+            android:enabled="false"
+            android:backgroundTint="@color/colorAccent"
+            android:textColor="@android:color/black"
+            android:hint="@string/hint"/>
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/browse_round"
+            android:background="@android:color/transparent"
+            android:id="@+id/browse"
+            android:layout_weight="80"/>
+        </LinearLayout>
+
+
+    <ImageButton
+        android:padding="@dimen/gap"
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/next_round"/>
+
+
+
+
+</LinearLayout>

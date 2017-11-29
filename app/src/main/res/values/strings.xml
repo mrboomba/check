@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Check</string>
+    <string name="subject">Subject</string>
+    <string name="name">Name :</string>
+    <string name="classamnt">Class Amount :</string>
+    <string name="assignamnt">Assignment Amount:</string>
+    <string name="hint">Please select file</string>
+    <string name="hint_name">EX. CS355</string>
+    <string name="hint_class">EX. 16</string>
+    <string name="hint_assign">EX. 4</string>
+    <string name="submit">submit</string>
+    <string name="new_class">CREATE NEW CLASS</string>
+    <string name="task">SELECT TASKS</string>
+    <string name="choose_file">choose class</string>
+</resources>
