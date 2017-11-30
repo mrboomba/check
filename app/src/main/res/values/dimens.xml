@@ -2,5 +2,6 @@
 <resources>
     <dimen name="gap">20dp</dimen>
     <dimen name="fontsize">15sp</dimen>
+    <dimen name="fontsize_big">17sp</dimen>
     <dimen name="fontsize_header">25sp</dimen>
 </resources>

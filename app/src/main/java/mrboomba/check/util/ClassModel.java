@@ -64,6 +64,34 @@ public class ClassModel implements Parcelable {
 
             cell = row.getCell(4);
             currentAssign = (int) cell.getNumericCellValue();
+            students = new StudentModel[studentAmnt];
+
+            for (int i = 0; i < studentAmnt; i++) {
+                row = sheet.getRow(i);
+                cell = row.getCell(0);
+                cell.setCellType(Cell.CELL_TYPE_STRING);
+                String id = cell.getStringCellValue();
+
+                cell = row.getCell(1);
+                String[] tmp1 = cell.getStringCellValue().split(" ");
+                String firstName = tmp1[0];
+                String lastName = tmp1[1];
+
+                students[i] =new StudentModel(firstName, lastName, id, classAmnt, classAmnt);
+            }
+
+            for (int i = 0; i < studentAmnt; i++) {
+                row = sheet.getRow(i);
+                for (int j = 0, k = 2; j < classAmnt; j++, k++) {
+                    cell = row.getCell(k);
+                    students[i].checkClass(j, (int) cell.getNumericCellValue());
+                }
+
+                for (int j = 0, k = 2+classAmnt; j < assignAmnt; j++, k++) {
+                    cell = row.getCell(k);
+                    students[i].checkAssign(j, (int) cell.getNumericCellValue());
+                }
+            }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -300,6 +328,9 @@ public class ClassModel implements Parcelable {
 
     public void setClassAmnt(int classAmnt) {
         this.classAmnt = classAmnt;
+        for(int i =0;i<studentAmnt;i++){
+            students[i].setClassAmnt(classAmnt);
+        }
     }
 
     public int getAssignAmnt() {
@@ -308,6 +339,9 @@ public class ClassModel implements Parcelable {
 
     public void setAssignAmnt(int assignAmnt) {
         this.assignAmnt = assignAmnt;
+        for(int i =0;i<studentAmnt;i++){
+            students[i].setAssignAmnt(assignAmnt);
+        }
     }
 
     public int getCurrentWeek() {

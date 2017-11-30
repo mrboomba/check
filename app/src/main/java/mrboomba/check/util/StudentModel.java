@@ -15,6 +15,10 @@ public class StudentModel implements Parcelable{
     private int classAmnt,assignAmnt;
     private int[] classCheck,assignCheck;
 
+    public StudentModel(){
+
+    }
+
     public StudentModel(String firstName, String lastName, String id, int classAmnt, int assignAmnt) {
         this.firstName = firstName;
         this.lastName = lastName;
