@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/add_class"
+        android:title="Makeup Class" />
+    <item
+        android:id="@+id/add_assign"
+        android:title="Add Assignment" />
+    <item
+        android:id="@+id/export"
+        android:title="Export" />
+
+</menu>

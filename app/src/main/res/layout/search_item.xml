@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="5709611759"
+                android:id="@+id/idText"
+                android:textSize="@dimen/fontsize_big"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="example Testnaja"
+                android:id="@+id/data"
+                android:textSize="@dimen/fontsize"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="30"
+        android:background="@android:color/holo_red_dark"
+        android:layout_marginRight="5dp"
+        android:id="@+id/no"/>
+
+
+    <ImageButton
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="30"
+        android:background="@color/yellow"
+        android:layout_marginRight="5dp"
+        android:id="@+id/late"/>
+
+        <ImageButton
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="30"
+            android:background="@android:color/holo_green_dark"
+            android:layout_marginRight="5dp"
+            android:id="@+id/yes"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

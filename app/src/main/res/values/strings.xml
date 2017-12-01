@@ -20,4 +20,7 @@
     <string name="classname_error">Please fill class name</string>
     <string name="file_error">Please choose your file</string>
     <string name="folder_empty_error">Folder is empty</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

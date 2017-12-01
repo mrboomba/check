@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mrboomba.check.Activity.AssignCheck"
+    android:orientation="vertical">
+    <it.neokree.materialtabs.MaterialTabHost
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:accentColor="@color/colorAccent"
+        app:primaryColor="@color/colorPrimary"
+        android:id="@+id/tabHost">
+    </it.neokree.materialtabs.MaterialTabHost>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sv"/>
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sv"
+        android:id="@+id/pager">
+
+    </android.support.v4.view.ViewPager>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        app:borderWidth="0dp"
+        app:fabSize="normal"
+        android:src="@mipmap/save"
+        app:backgroundTint="@color/colorAccent"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

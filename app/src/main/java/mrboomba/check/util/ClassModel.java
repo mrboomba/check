@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.format.CellFormatType;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -17,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by mrboomba on 29/11/2560.
@@ -77,7 +79,7 @@ public class ClassModel implements Parcelable {
                 String firstName = tmp1[0];
                 String lastName = tmp1[1];
 
-                students[i] =new StudentModel(firstName, lastName, id, classAmnt, classAmnt);
+                students[i] =new StudentModel(firstName, lastName, id, classAmnt, assignAmnt);
             }
 
             for (int i = 0; i < studentAmnt; i++) {
@@ -190,7 +192,7 @@ public class ClassModel implements Parcelable {
             String firstName = tmp[0];
             String lastName = tmp[1];
 
-            students.add(new StudentModel(firstName, lastName, id, classAmnt, classAmnt));
+            students.add(new StudentModel(firstName, lastName, id, classAmnt, assignAmnt));
             studentAmnt++;
 
         }
@@ -358,5 +360,65 @@ public class ClassModel implements Parcelable {
 
     public void setCurrentAssign(int currentAssign) {
         this.currentAssign = currentAssign;
+    }
+
+    public void export(){
+        sheet = workbook.getSheetAt(0);
+        try {
+            for (int i = 0; i < studentAmnt; i++) {
+                Row row = sheet.getRow(i);
+                float sum=0;
+                for (int j = 0, k = 2; j < classAmnt; j++, k++) {
+                    Cell cell = row.getCell(k);
+                    if (cell == null) cell = row.createCell(k);
+                    if(students[i].getClassChecked(j)==-1||students[i].getClassChecked(j)==0){
+                        cell.setCellValue(0);
+                    }else if(students[i].getClassChecked(j)==2){
+                        sum+=0.5;
+                        cell.setCellValue(2);
+                    }else {
+                        sum+=1;
+                        cell.setCellValue(1);
+                    }
+                }
+                Cell cell = row.getCell(classAmnt+2);
+                if (cell == null) cell = row.createCell(classAmnt+2);
+                cell.setCellValue(sum);
+                sum=0;
+                for (int j = 0, k = 3+classAmnt; j < assignAmnt; j++, k++) {
+                    cell = row.getCell(k);
+                    if (cell == null) cell = row.createCell(k);
+                    if(students[i].getAssignChecked(j)==-1||students[i].getClassChecked(j)==0){
+                        cell.setCellValue(0);
+                    }else if(students[i].getAssignChecked(j)==2){
+                        sum+=0.5;
+                        cell.setCellValue(2);
+                    }else {
+                        sum+=1;
+                        cell.setCellValue(1);
+                    }
+                }
+                cell = row.getCell(classAmnt+3+assignAmnt);
+                if (cell == null) cell = row.createCell(classAmnt+3+assignAmnt);
+                cell.setCellValue(sum);
+            }
+            Row row = sheet.getRow(studentAmnt);
+
+            FileOutputStream outputStream = new FileOutputStream(fileName);
+            workbook.write(outputStream);
+            outputStream.close();
+            String[] tmp = fileName.split("\\.");
+            FileInputStream fIP = new FileInputStream(file);
+            if(!tmp[tmp.length-1].equalsIgnoreCase("xls"))
+                workbook = new XSSFWorkbook(fIP);
+            fileUtil = new FileUtil();
+            fileUtil.copyFile(fileName,fileName.replace("working","export"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

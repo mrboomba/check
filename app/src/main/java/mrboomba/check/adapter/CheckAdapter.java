@@ -46,15 +46,15 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.myTextView.setText(position+1+"");
         holder.setView(context,studentModel.getClassChecked(position));
-        if(position==currentWeek){
+        if(currentWeek==position){
             holder.myTextView.setTextSize(context.getResources().getDimension(R.dimen.fontsize_big));
         }
     }
 
     @Override
     public int getItemCount() {
-
-        return 16;
+        Log.d("mrboomba",studentModel.getClassAmnt()+"");
+        return studentModel.getClassAmnt();
     }
 
     // stores and recycles views as they are scrolled off screen
@@ -76,7 +76,7 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> 
                 view.setBackgroundColor(ContextCompat.getColor(activity,android.R.color.holo_red_light));
             }else if(check == -1){
                 view.setBackgroundColor(ContextCompat.getColor(activity,R.color.cardview_light_background));
-            }else if(check == -1){
+            }else if(check == 2){
                 view.setBackgroundColor(ContextCompat.getColor(activity,R.color.yellow));
             }
         }

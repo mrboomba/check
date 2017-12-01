@@ -2,6 +2,7 @@ package mrboomba.check.util;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -113,12 +114,13 @@ public class StudentModel implements Parcelable{
 
     public void setAssignAmnt(int assignAmnt) {
         this.assignAmnt = assignAmnt;
-        int[] tmp = assignCheck;
+        int[] tmp2 = assignCheck.clone();
         assignCheck = new int[assignAmnt];
-        for(int i=0;i<tmp.length;i++){
-            assignCheck[i] = tmp[i];
+        Log.d("mrboomba",tmp2.length+" "+assignCheck.length);
+        for(int i=0;i<tmp2.length;i++){
+            assignCheck[i] = tmp2[i];
         }
-        assignCheck[tmp.length] = -1;
+        assignCheck[tmp2.length] = -1;
     }
 
     @Override
