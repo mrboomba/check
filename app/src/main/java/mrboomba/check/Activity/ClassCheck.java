@@ -5,18 +5,27 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.andtinder.model.CardModel;
+import com.andtinder.view.CardContainer;
+import com.andtinder.view.SimpleCardStackAdapter;
+
 import mrboomba.check.R;
+import mrboomba.check.adapter.CardAdapter;
 import mrboomba.check.adapter.CheckAdapter;
 import mrboomba.check.adapter.SearchAdapter;
 import mrboomba.check.util.ClassModel;
@@ -30,6 +39,8 @@ public class ClassCheck extends AppCompatActivity implements SearchView.OnQueryT
     private CheckAdapter adapter;
 
     private SearchAdapter searchAdapter;
+    private CardContainer mCardContainer;
+
 
     private int current;
     private ClassModel classModel;
@@ -40,65 +51,77 @@ public class ClassCheck extends AppCompatActivity implements SearchView.OnQueryT
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_class_check);
+        setContentView(R.layout.card_layout);
         Intent intent = getIntent();
         classModel = intent.getParcelableExtra("class");
         current = 0;
-        recyclerView = (RecyclerView) findViewById(R.id.check_recycler);
+        final SharedPreferences sharedPref = getSharedPreferences("mrboomba", Context.MODE_PRIVATE);
+
+        boolean check = sharedPref.getBoolean("first_use", true);
+
+        if(check) {
+            AlertDialog alertDialog = new AlertDialog.Builder(ClassCheck.this).create();
+            alertDialog.setTitle("Info");
+            alertDialog.setMessage("Swipe right to CHECK...Swipe left to NOT CHECK");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Got it",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putBoolean("first_use", false);
+                            editor.commit();
+
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+        }
+
+        mCardContainer = (CardContainer) findViewById(R.id.layoutview);
+
+        Resources r = getResources();
+
+        CardAdapter adapter = new CardAdapter(ClassCheck.this,classModel);
+
+        for(int i=classModel.getStudentAmnt()-1;i>=0;i--) {
+            StudentModel s = classModel.getStudents()[i];
+            CardModel cardModel = new CardModel(s.getFirstName()+" "+s.getLastName(),"", (Drawable) null);
+            cardModel.setOnClickListener(new CardModel.OnClickListener() {
+                @Override
+                public void OnClickListener() {
+                    Log.i("Swipeable Cards","I am pressing the card");
+                }
+            });
+
+            cardModel.setOnCardDimissedListener(new CardModel.OnCardDimissedListener() {
+                @Override
+                public void onLike() {
+
+                    current++;
+                    if(current == classModel.getStudentAmnt()){
+                        setUpSearch();
+                    }
+
+                }
+
+                @Override
+                public void onDislike() {
+                    classModel.getStudents()[current].checkClass(classModel.getCurrentWeek(),1);
+                    current++;
+                    if(current == classModel.getStudentAmnt()){
+                        setUpSearch();
+                    }
+                }
+            });
+            adapter.add(cardModel);
+        }
+
+        mCardContainer.setAdapter(adapter);
 
 
-        initView();
+       // initView();
 
     }
 
-    public void initView(){
-        recyclerView = (RecyclerView) findViewById(R.id.check_recycler);
-        no = (ImageButton) findViewById(R.id.no);
-        yes = (ImageButton) findViewById(R.id.yes);
-        textView = (TextView) findViewById(R.id.name);
-        recyclerView.setHasFixedSize(true);
-
-        textView.setText(classModel.getStudents()[current].getFirstName()+" "+classModel.getStudents()[current].getLastName());
-
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(ClassCheck.this, LinearLayout.HORIZONTAL,false));
-        adapter = new CheckAdapter(ClassCheck.this,classModel.getStudents()[current],classModel.getCurrentWeek());
-        recyclerView.setAdapter(adapter);
-
-        yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                classModel.getStudents()[current].checkClass(classModel.getCurrentWeek(),1);
-                current++;
-                if(current == classModel.getStudentAmnt()){
-                    setUpSearch();
-                }else{
-                    textView.setText(classModel.getStudents()[current].getFirstName()+" "+classModel.getStudents()[current].getLastName());
-                    adapter = new CheckAdapter(ClassCheck.this,classModel.getStudents()[current],classModel.getCurrentWeek());
-                    recyclerView.setAdapter(adapter);
-                }
-
-
-            }
-        });
-
-        no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                current++;
-                if(current == classModel.getStudentAmnt()){
-                    setUpSearch();
-                }
-                else{
-                    textView.setText(classModel.getStudents()[current].getFirstName()+" "+classModel.getStudents()[current].getLastName());
-                    adapter = new CheckAdapter(ClassCheck.this,classModel.getStudents()[current],classModel.getCurrentWeek());
-                    recyclerView.setAdapter(adapter);
-                }
-
-            }
-        });
-
-    }
 
     @Override
     public void onBackPressed() {

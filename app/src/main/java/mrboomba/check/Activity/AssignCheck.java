@@ -23,14 +23,13 @@ import mrboomba.check.adapter.SearchAdapter;
 import mrboomba.check.fragment.RecyclerFragment;
 import mrboomba.check.util.ClassModel;
 
-public class AssignCheck extends AppCompatActivity implements MaterialTabListener, SearchView.OnQueryTextListener {
+public class AssignCheck extends AppCompatActivity implements MaterialTabListener {
 
     ViewPager pager;
     ClassModel classModel;
     MaterialTabHost tabHost;
     ViewPagerAdapter adapter;
     FloatingActionButton fab;
-    public AssignAdapter searchAdapter;
 
 
     @Override
@@ -81,13 +80,6 @@ public class AssignCheck extends AppCompatActivity implements MaterialTabListene
 
 
 
-        SearchView searchView = (SearchView) findViewById(R.id.sv);
-        SearchManager searchManager = (SearchManager)
-                getSystemService(Context.SEARCH_SERVICE);
-        searchView.setSearchableInfo(searchManager.
-                getSearchableInfo(getComponentName()));
-        searchView.setSubmitButtonEnabled(true);
-        searchView.setOnQueryTextListener(this);
 
 
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
@@ -96,16 +88,7 @@ public class AssignCheck extends AppCompatActivity implements MaterialTabListene
 
     }
 
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return true;
-    }
 
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        searchAdapter.getFilter().filter(newText);
-        return true;
-    }
 
 
     @Override

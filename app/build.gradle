@@ -37,5 +37,6 @@ dependencies {
     compile 'com.android.support:design:26.1.0'
     compile 'com.bowyer.app:fabtransitionlayout:0.4.0@aar'
     compile 'it.neokree:MaterialTabs:0.11'
+    compile 'com.github.kikoso:SwipeableCards:1.1-RELEASE@aar'
 
 }

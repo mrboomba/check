@@ -20,13 +20,14 @@ import mrboomba.check.adapter.AssignAdapter;
 import mrboomba.check.util.ClassModel;
 
 
-public class RecyclerFragment extends Fragment {
+public class RecyclerFragment extends Fragment implements  SearchView.OnQueryTextListener {
 
     RecyclerView mRecyclerView;
     LinearLayoutManager mLayoutManager;
     AssignAdapter mAdapter;
     ClassModel classModel;
     int position;
+    SearchView searchView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -44,12 +45,31 @@ public class RecyclerFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(this.getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         AssignCheck assignCheck = (AssignCheck)this.getActivity();
-        assignCheck.searchAdapter = new AssignAdapter(this.getActivity(),classModel,position);
+        mAdapter = new AssignAdapter(this.getActivity(),classModel,position);
 
-        mRecyclerView.setAdapter(assignCheck.searchAdapter);
+        mRecyclerView.setAdapter(mAdapter);
+
+        SearchView searchView = (SearchView) view.findViewById(R.id.sv);
+        SearchManager searchManager = (SearchManager)
+                getActivity().getSystemService(Context.SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.
+                getSearchableInfo(getActivity().getComponentName()));
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(this);
 
 
 
         return view;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        mAdapter.getFilter().filter(newText);
+        return true;
     }
 }

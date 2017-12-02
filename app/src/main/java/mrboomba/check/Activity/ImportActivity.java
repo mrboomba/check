@@ -1,7 +1,11 @@
 package mrboomba.check.Activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -43,12 +47,33 @@ public class ImportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_import);
 
-        Ask.on(this)
+        Ask.on(ImportActivity.this)
                 .forPermissions(Manifest.permission.READ_EXTERNAL_STORAGE
                         , Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .withRationales("For read file excel to import",
                         "For export file to you") //optional
                 .go();
+
+        final SharedPreferences sharedPref = getSharedPreferences("mrboomba", Context.MODE_PRIVATE);
+
+        boolean check = sharedPref.getBoolean("first_come", true);
+
+        if(check) {
+            AlertDialog alertDialog = new AlertDialog.Builder(ImportActivity.this).create();
+            alertDialog.setTitle("Info");
+            alertDialog.setMessage("Please move your excel file to folder Checker/import/ before use");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Got it",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putBoolean("first_come", false);
+                            editor.commit();
+
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+        }
 
         classModel = null;
         fileutil = new FileUtil();
@@ -94,6 +119,10 @@ public class ImportActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(edit.getText().toString().equals("")){
+                    Toasty.error(ImportActivity.this,getResources().getString(R.string.file_error), Toast.LENGTH_SHORT).show();
+
+                }
                 Intent intent = new Intent(ImportActivity.this, HomeActivity.class);
                 intent.putExtra("class",classModel);
                 startActivity(intent);
@@ -123,7 +152,6 @@ public class ImportActivity extends AppCompatActivity {
 
                     }
                 }catch (Exception e){
-                    Log.d("mrboomba",e.getMessage());
                     Toasty.error(ImportActivity.this,"Please Check Your File!", Toast.LENGTH_SHORT).show();
                 }
             }

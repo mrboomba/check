@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import mrboomba.check.R;
 import mrboomba.check.util.ClassModel;
@@ -19,7 +21,8 @@ public class HomeActivity extends AppCompatActivity {
     private final int CLASS_CODE = 100;
     private final int ASSIGN_CODE = 101;
     ClassModel classModel;
-    Button classButton,assignButton;
+    ImageButton classButton,assignButton;
+    TextView classText,assignText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,17 +55,19 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void initView(){
-        classButton = (Button) findViewById(R.id.class_button);
-        assignButton = (Button) findViewById(R.id.assign_button);
+        classButton = (ImageButton) findViewById(R.id.class_button);
+        assignButton = (ImageButton) findViewById(R.id.assign_button);
+        classText = (TextView) findViewById(R.id.class_text);
+        assignText = (TextView)findViewById(R.id.assign_text);
         if(classModel.getCurrentWeek()>=classModel.getClassAmnt()) {
-            classButton.setText("Success");
+            classText.setText("Success");
             classButton.setEnabled(false);
         }
         else{
-            classButton.setText(classModel.getCurrentWeek()+1+"/"+classModel.getClassAmnt());
+            classText.setText(classModel.getCurrentWeek()+1+"/"+classModel.getClassAmnt());
             classButton.setEnabled(true);
         }
-        assignButton.setText(classModel.getAssignAmnt()+"");
+        assignText.setText(classModel.getAssignAmnt()+"");
         classButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

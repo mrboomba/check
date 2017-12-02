@@ -23,26 +23,66 @@
         android:layout_weight="1"
         android:padding="@dimen/gap"
         >
-        <Button
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@mipmap/check"
-            android:textColor="@color/colorAccent"
-            android:textAlignment="center"
-            android:textSize="@dimen/fontsize_header"
-            android:id="@+id/class_button"
-            />
-        <Button
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/class_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="abcd"
+                android:elevation="15dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/fontsize_header" />
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:src="@drawable/check"
+                android:background="@color/blue"
+                android:elevation="10dp"
+                android:layout_margin="@dimen/gap"
+                android:id="@+id/class_button"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/assign_button"
-            android:background="@mipmap/checkassign"
-            android:textColor="@color/colorAccent"
-            android:textAlignment="center"
-            android:textSize="@dimen/fontsize_header"
-            />
+            android:layout_weight="1">
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:id="@+id/assign_button"
+                android:layout_margin="@dimen/gap"
+                android:elevation="10dp"
+                android:padding="5dp"
+                android:src="@drawable/checkassign"
+                android:background="@color/blue"
+                android:scaleType="centerInside"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/colorAccent"
+                android:textAlignment="center"
+                android:elevation="15dp"
+                android:textSize="@dimen/fontsize_header"
+                android:id="@+id/assign_text"
+                />
+
+        </RelativeLayout>
+
+
 
     </LinearLayout>
     <LinearLayout
